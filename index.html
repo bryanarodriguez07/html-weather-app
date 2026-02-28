@@ -1,6 +1,67 @@
 <html>
   <body>
-
+  <article class="weather-widget">
+  
+  <section class="current-weather">
+    <header>
+      <h2>Monday</h2>
+      <time datetime="2022-06-20">20 Jun 2022</time>
+    </header>
     
+    <div class="current-stats">
+      <img src="sunny-icon.svg" alt="Sunny">
+      <p class="temperature">29 °C</p>
+      <p class="range">H: 31° L: 24°</p>
+      <p class="condition">Sunny</p>
+    </div>
+  </section>
+
+  <section class="weather-details">
+    
+    <dl class="metrics">
+      <dt>Precipitation</dt>
+      <dd>0%</dd>
+      
+      <dt>Humidity</dt>
+      <dd>42%</dd>
+      
+      <dt>Wind</dt>
+      <dd>3 km/h</dd>
+    </dl>
+
+    <section class="forecast">
+      <h3 class="visually-hidden">4-Day Forecast</h3>
+      <ol>
+        <li class="forecast-day active">
+          <abbr title="Tuesday">Tue</abbr>
+          <img src="sunny.svg" alt="Sunny">
+          <span class="temp">30 °C</span>
+        </li>
+        <li class="forecast-day">
+          <abbr title="Wednesday">Wed</abbr>
+          <img src="cloudy-sunny.svg" alt="Partly Cloudy">
+          <span class="temp">22 °C</span>
+        </li>
+        <li class="forecast-day">
+          <abbr title="Thursday">Thu</abbr>
+          <img src="rainy.svg" alt="Rainy">
+          <span class="temp">06 °C</span>
+        </li>
+        <li class="forecast-day">
+          <abbr title="Friday">Fri</abbr>
+          <img src="sunny.svg" alt="Sunny">
+          <span class="temp">26 °C</span>
+        </li>
+      </ol>
+    </section>
+
+    <footer>
+      <button type="button" aria-label="Change location">
+        <address>New York City</address>
+      </button>
+    </footer>
+    
+  </section>
+</article>
   </body> 
 </html>
