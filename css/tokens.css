@@ -1,0 +1,30 @@
+:root {
+--color-navy-blue-100: #222831;
+--color-white-100: #ffffff; 
+--color-black-100: #000000; 
+--color-grey-100: #60656C;
+--color-teal-100: #84C5CE; 
+--color-purple-100: #525FD4; 
+
+--font-size-20: 20px; 
+--font-size-28: 28px; 
+--font-size-38: 38px;
+--font-family-montserrat: 'Montserrat', sans-serif;  
+
+--corner-round-10: 10px;
+--corner-round-25: 24px;
+--corner-round-30: 30px;
+
+/* Heading Sizes*/
+--font-heading-sm: var(--font-size-20);
+--font-heading-md: var(--font-size-28);
+--font-heading-lg: var(--font-size-38); 
+--font-headings-primary: var(--font-family-montserrat); 
+
+/* corner round size */ 
+--corner-round-day-panel: var(--corner-round-30);
+--corner-round-day-forecast-panel: var(--corner-round-24);
+--corner-round-day: var(--corner-round-10);
+--corner-round-button: var(--corner-round-10);
+
+}
