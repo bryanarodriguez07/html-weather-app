@@ -1,0 +1,12 @@
+body {
+    font-family: var(--font-family-montserrat);
+    font-size: var(--regular-text);
+    background-color: var(--app-background-color);
+    color: var(--primary-text-color);
+}
+
+.current-weather { 
+    border-radius: var(--corner-round-day-panel);
+    background-color: var(--color-teal-100);
+
+}
