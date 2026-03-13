@@ -1,12 +1,261 @@
-body {
-    font-family: var(--font-family-montserrat);
-    font-size: var(--regular-text);
-    background-color: var(--app-background-color);
-    color: var(--primary-text-color);
+/* ── RESET ──────────────────────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
-.current-weather { 
-    border-radius: var(--corner-round-day-panel);
-    background-color: var(--color-teal-100);
+/* ── BODY ───────────────────────────────────────────────── */
+body {
+  font-family: var(--font-family-montserrat);
+  font-size: var(--regular-text);
+  background-color: var(--app-background-color);
+  color: var(--primary-text-color);
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
 
+/* ── WIDGET SHELL ───────────────────────────────────────── */
+.weather-widget {
+  display: flex;
+  width: 720px;
+  min-height: 420px;
+  border-radius: var(--corner-round-day-panel);
+  overflow: hidden;
+  box-shadow: 0 32px 80px rgba(0, 0, 0, 0.5);
+}
+
+/* ── CURRENT WEATHER (left panel) ───────────────────────── */
+.current-weather {
+  position: relative;
+  flex: 0 0 290px;
+  border-radius: var(--corner-round-day-panel);
+  background: linear-gradient(160deg, #a8d8ea 0%, #8ab4f8 35%, #7b9cf5 60%, #6a7fe0 100%);
+  overflow: hidden;
+  padding: 28px 28px 32px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  z-index: 2;
+  box-shadow: 4px 0 24px rgba(0, 0, 0, 0.25);
+}
+
+/* Noise texture overlay */
+.current-weather::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23n)' opacity='0.08'/%3E%3C/svg%3E");
+  mix-blend-mode: overlay;
+  pointer-events: none;
+}
+
+.current-weather header h2 {
+  font-size: var(--font-heading-lg);
+  font-weight: 800;
+  line-height: 1;
+  color: var(--color-white-100);
+}
+
+.current-weather header time {
+  display: block;
+  margin-top: 4px;
+  font-size: var(--font-size-16);
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.current-stats {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.current-stats .weather-icon {
+  margin-bottom: 8px;
+  filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.15));
+}
+
+.current-stats .temperature {
+  font-size: var(--font-size-52);
+  font-weight: 800;
+  color: var(--color-white-100);
+  line-height: 1;
+}
+
+.current-stats .range {
+  font-size: var(--font-size-16);
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.9);
+  margin-top: 2px;
+}
+
+.current-stats .condition {
+  font-size: var(--font-size-20);
+  font-weight: 700;
+  color: var(--color-white-100);
+  margin-top: 4px;
+}
+
+/* ── WEATHER DETAILS (right panel) ──────────────────────── */
+.weather-details {
+  flex: 1;
+  background-color: var(--color-navy-blue-100);
+  border-radius: 0 var(--corner-round-day-panel) var(--corner-round-day-panel) 0;
+  padding: 28px 28px 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+/* ── METRICS ─────────────────────────────────────────────── */
+dl.metrics {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  row-gap: 12px;
+}
+
+dl.metrics dt {
+  font-size: var(--font-size-16);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-white-100);
+  align-self: center;
+}
+
+dl.metrics dd {
+  font-size: var(--font-size-20);
+  font-weight: 600;
+  color: var(--color-white-100);
+  text-align: right;
+  align-self: center;
+}
+
+.unit-toggle {
+  grid-column: 2;
+  font-size: var(--font-size-14);
+  color: rgba(255, 255, 255, 0.5);
+  text-align: right;
+  margin-top: 4px;
+}
+
+/* ── FORECAST ────────────────────────────────────────────── */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+}
+
+ol.forecast-list {
+  list-style: none;
+  display: flex;
+  gap: 8px;
+}
+
+li.forecast-day {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 14px 8px;
+  border-radius: var(--corner-round-day);
+  background: rgba(255, 255, 255, 0.05);
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+li.forecast-day:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+li.forecast-day.active {
+  background: var(--color-white-100);
+}
+
+li.forecast-day abbr {
+  font-size: var(--font-size-14);
+  font-weight: 600;
+  text-decoration: none;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+li.forecast-day.active abbr {
+  color: var(--color-navy-blue-100);
+}
+
+li.forecast-day .day-icon {
+  line-height: 1;
+}
+
+li.forecast-day .temp {
+  font-size: var(--font-size-16);
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+li.forecast-day.active .temp {
+  color: var(--color-navy-blue-100);
+}
+
+/* ── PAGINATION DOTS ─────────────────────────────────────── */
+.pagination-dots {
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+  margin-top: 10px;
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.25);
+}
+
+.dot.active {
+  background: var(--color-white-100);
+}
+
+/* ── LOCATION BUTTON ─────────────────────────────────────── */
+footer {
+  margin-top: auto;
+}
+
+.location-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  padding: 14px 20px;
+  border: none;
+  border-radius: var(--corner-round-button);
+  background: linear-gradient(90deg, var(--color-teal-100) 0%, var(--color-purple-100) 100%);
+  color: var(--color-white-100);
+  font-family: var(--font-family-montserrat);
+  font-size: var(--font-size-16);
+  font-weight: 700;
+  cursor: pointer;
+  transition: opacity 0.2s, transform 0.1s;
+}
+
+.location-btn:hover {
+  opacity: 0.9;
+}
+
+.location-btn:active {
+  transform: scale(0.98);
+}
+
+.location-btn address {
+  font-style: normal;
 }
