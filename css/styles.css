@@ -34,7 +34,9 @@ body {
   position: relative;
   flex: 0 0 290px;
   border-radius: var(--corner-round-day-panel);
-  background: var(--gradient-left-panel);
+  background:
+    var(--gradient-left-panel),
+    url('../images/weather-bg.jpg') center / cover no-repeat;
   overflow: hidden;
   padding: var(--padding-panel) var(--padding-panel) var(--padding-panel-b);
   display: flex;

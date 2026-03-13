@@ -222,10 +222,22 @@
       return document.querySelector('.unit-btn.active').dataset.unit;
     }
 
+    // ── Current weather data ──────────────────────────────
+    const currentWeather = {
+      c: { temp: '29 °C', range: 'H: 31° L: 24°', condition: 'Sunny' },
+      f: { temp: '84 °F', range: 'H: 88° L: 75°', condition: 'Sunny' }
+    };
+
     function renderPage(pageIndex) {
       const days  = pages[pageIndex];
       const unit  = getUnit();
       const items = document.querySelectorAll('.forecast-day');
+
+      // Update left panel
+      const cw = currentWeather[unit];
+      document.querySelector('.temperature').textContent = cw.temp;
+      document.querySelector('.range').textContent       = cw.range;
+      document.querySelector('.condition').textContent   = cw.condition;
 
       items.forEach((item, i) => {
         const day    = days[i];
