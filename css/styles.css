@@ -15,7 +15,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 24px;
+  padding: var(--space-24);
 }
 
 /* ── WIDGET SHELL ───────────────────────────────────────── */
@@ -25,8 +25,8 @@ body {
   min-height: 420px;
   border-radius: var(--corner-round-day-panel);
   overflow: hidden;
-  box-shadow: 0 32px 80px rgba(0, 0, 0, 0.5);
   background-color: var(--color-navy-blue-100);
+  box-shadow: var(--shadow-widget);
 }
 
 /* ── CURRENT WEATHER (left panel) ───────────────────────── */
@@ -34,14 +34,14 @@ body {
   position: relative;
   flex: 0 0 290px;
   border-radius: var(--corner-round-day-panel);
-  background: linear-gradient(160deg, #a8d8ea 0%, #8ab4f8 35%, #7b9cf5 60%, #6a7fe0 100%);
+  background: var(--gradient-left-panel);
   overflow: hidden;
-  padding: 28px 28px 32px;
+  padding: var(--padding-panel) var(--padding-panel) var(--padding-panel-b);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   z-index: 2;
-  box-shadow: 4px 0 24px rgba(0, 0, 0, 0.25);
+  box-shadow: var(--shadow-left-panel);
 }
 
 /* Noise texture overlay */
@@ -58,65 +58,65 @@ body {
   font-size: var(--font-heading-lg);
   font-weight: 800;
   line-height: 1;
-  color: var(--color-white-100);
+  color: var(--primary-text-color);
 }
 
 .current-weather header time {
   display: block;
-  margin-top: 4px;
+  margin-top: var(--space-4);
   font-size: var(--font-size-16);
   font-weight: 400;
-  color: rgba(255, 255, 255, 0.85);
+  color: rgba(255, 255, 255, var(--opacity-text-primary));
 }
 
 .current-stats {
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: var(--gap-stats);
 }
 
 .current-stats .weather-icon {
-  margin-bottom: 8px;
+  margin-bottom: var(--space-8);
   filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.15));
 }
 
 .current-stats .temperature {
   font-size: var(--font-size-52);
   font-weight: 800;
-  color: var(--color-white-100);
+  color: var(--primary-text-color);
   line-height: 1;
 }
 
 .current-stats .range {
   font-size: var(--font-size-16);
   font-weight: 600;
-  color: rgba(255, 255, 255, 0.9);
-  margin-top: 2px;
+  color: rgba(255, 255, 255, var(--opacity-text-strong));
+  margin-top: var(--space-4);
 }
 
 .current-stats .condition {
   font-size: var(--font-size-20);
   font-weight: 700;
-  color: var(--color-white-100);
-  margin-top: 4px;
+  color: var(--primary-text-color);
+  margin-top: var(--space-4);
 }
 
 /* ── WEATHER DETAILS (right panel) ──────────────────────── */
 .weather-details {
   flex: 1;
   background-color: var(--color-navy-blue-100);
-  padding: 28px 28px 24px;
+  padding: var(--padding-panel) var(--padding-panel) var(--space-24);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  gap: 16px;
+  gap: var(--gap-widget);
 }
 
 /* ── METRICS ─────────────────────────────────────────────── */
 dl.metrics {
   display: grid;
   grid-template-columns: 1fr auto;
-  row-gap: 12px;
+  row-gap: var(--gap-metrics);
 }
 
 dl.metrics dt {
@@ -124,24 +124,101 @@ dl.metrics dt {
   font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: var(--color-white-100);
+  color: var(--primary-text-color);
   align-self: center;
 }
 
 dl.metrics dd {
   font-size: var(--font-size-20);
   font-weight: 600;
-  color: var(--color-white-100);
+  color: var(--primary-text-color);
   text-align: right;
   align-self: center;
 }
 
 .unit-toggle {
-  grid-column: 2;
+  grid-column: 1 / -1;
   font-size: var(--font-size-14);
-  color: rgba(255, 255, 255, 0.5);
+  color: var(--muted-text-color);
   text-align: right;
-  margin-top: 4px;
+  margin-top: var(--space-4);
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--space-4);
+}
+
+.unit-btn {
+  background: none;
+  border: none;
+  font-family: var(--font-family-montserrat);
+  font-size: var(--font-size-14);
+  font-weight: 600;
+  color: var(--subtle-text-color);
+  cursor: pointer;
+  padding: 0;
+}
+
+.unit-btn.active {
+  color: var(--primary-text-color);
+}
+
+/* ── FORECAST SCROLL WRAP + SCRIMS ───────────────────────── */
+.forecast-scroll-wrap {
+  position: relative;
+}
+
+.forecast-scrim {
+  position: absolute;
+  top: 0;
+  width: 72px;
+  height: 100%;
+  pointer-events: none;
+  transition: opacity 0.3s;
+  opacity: 0;
+}
+
+.forecast-scrim--right {
+  right: 0;
+  background: linear-gradient(to right, transparent, var(--color-navy-blue-100));
+  border-radius: 0 var(--corner-round-day) var(--corner-round-day) 0;
+  opacity: 1;
+}
+
+.forecast-scrim--left {
+  left: 0;
+  background: linear-gradient(to left, transparent, var(--color-navy-blue-100));
+  border-radius: var(--corner-round-day) 0 0 var(--corner-round-day);
+  opacity: 0;
+}
+
+.forecast-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: var(--space-8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.3s;
+  z-index: 2;
+}
+
+.forecast-arrow--right {
+  right: var(--space-4);
+  opacity: 1;
+}
+
+.forecast-arrow--left {
+  left: var(--space-4);
+  opacity: 0;
+}
+
+.forecast-arrow:hover {
+  opacity: 0.7 !important;
 }
 
 /* ── FORECAST ────────────────────────────────────────────── */
@@ -157,7 +234,7 @@ dl.metrics dd {
 ol.forecast-list {
   list-style: none;
   display: flex;
-  gap: 8px;
+  gap: var(--gap-forecast);
 }
 
 li.forecast-day {
@@ -165,27 +242,27 @@ li.forecast-day {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 6px;
-  padding: 14px 8px;
+  gap: var(--space-4);
+  padding: var(--padding-card);
   border-radius: var(--corner-round-day);
-  background: rgba(255, 255, 255, 0.05);
+  background: var(--surface-default);
   cursor: pointer;
   transition: background 0.2s;
 }
 
 li.forecast-day:hover {
-  background: rgba(255, 255, 255, 0.1);
+  background: var(--surface-hover);
 }
 
 li.forecast-day.active {
-  background: var(--color-white-100);
+  background: var(--primary-text-color);
 }
 
 li.forecast-day abbr {
   font-size: var(--font-size-14);
   font-weight: 600;
   text-decoration: none;
-  color: rgba(255, 255, 255, 0.7);
+  color: var(--secondary-text-color);
 }
 
 li.forecast-day.active abbr {
@@ -199,7 +276,7 @@ li.forecast-day .day-icon {
 li.forecast-day .temp {
   font-size: var(--font-size-16);
   font-weight: 700;
-  color: rgba(255, 255, 255, 0.9);
+  color: rgba(255, 255, 255, var(--opacity-text-strong));
 }
 
 li.forecast-day.active .temp {
@@ -210,19 +287,19 @@ li.forecast-day.active .temp {
 .pagination-dots {
   display: flex;
   justify-content: center;
-  gap: 6px;
-  margin-top: 10px;
+  gap: var(--space-4);
+  margin-top: var(--space-10);
 }
 
 .dot {
-  width: 8px;
-  height: 8px;
+  width: var(--space-8);
+  height: var(--space-8);
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.25);
+  background: var(--surface-dot-inactive);
 }
 
 .dot.active {
-  background: var(--color-white-100);
+  background: var(--primary-text-color);
 }
 
 /* ── LOCATION BUTTON ─────────────────────────────────────── */
@@ -234,13 +311,13 @@ footer {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 10px;
+  gap: var(--space-10);
   width: 100%;
-  padding: 14px 20px;
+  padding: var(--space-14) var(--space-24);
   border: none;
   border-radius: var(--corner-round-button);
-  background: linear-gradient(90deg, var(--color-teal-100) 0%, var(--color-purple-100) 100%);
-  color: var(--color-white-100);
+  background: var(--gradient-location-btn);
+  color: var(--primary-text-color);
   font-family: var(--font-family-montserrat);
   font-size: var(--font-size-16);
   font-weight: 700;

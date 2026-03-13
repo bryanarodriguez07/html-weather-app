@@ -1,4 +1,26 @@
+@font-face {
+  font-family: 'Montserrat';
+  src: url('../fonts/Montserrat-Regular.ttf') format('truetype');
+  font-weight: 400;
+}
+@font-face {
+  font-family: 'Montserrat';
+  src: url('../fonts/Montserrat-SemiBold.ttf') format('truetype');
+  font-weight: 600;
+}
+@font-face {
+  font-family: 'Montserrat';
+  src: url('../fonts/Montserrat-Bold.ttf') format('truetype');
+  font-weight: 700;
+}
+@font-face {
+  font-family: 'Montserrat';
+  src: url('../fonts/Montserrat-ExtraBold.ttf') format('truetype');
+  font-weight: 800;
+}
+
 :root {
+
   /* ── Raw Colors ──────────────────────────────────────── */
   --color-navy-blue-100: #222831;
   --color-white-100: #ffffff;
@@ -7,7 +29,55 @@
   --color-teal-100: #84C5CE;
   --color-purple-100: #525FD4;
 
-  /* ── Font Sizes ──────────────────────────────────────── */
+  /* Left panel gradient stops */
+  --color-gradient-1: #a8d8ea;
+  --color-gradient-2: #8ab4f8;
+  --color-gradient-3: #7b9cf5;
+  --color-gradient-4: #6a7fe0;
+
+  /* App background (slightly darker than navy) */
+  --color-background: #1a1f27;
+
+  /* ── Opacity Scales ──────────────────────────────────── */
+  --opacity-text-subtle:   0.35;
+  --opacity-text-muted:    0.5;
+  --opacity-text-secondary: 0.7;
+  --opacity-text-primary:  0.85;
+  --opacity-text-strong:   0.9;
+
+  --opacity-surface-default: 0.05;
+  --opacity-surface-hover:   0.1;
+  --opacity-surface-dot:     0.25;
+
+  /* ── Semantic Colors ─────────────────────────────────── */
+  --app-background-color:       var(--color-background);
+  --primary-text-color:         var(--color-white-100);
+  --secondary-text-color:       rgba(255, 255, 255, var(--opacity-text-secondary));
+  --muted-text-color:           rgba(255, 255, 255, var(--opacity-text-muted));
+  --subtle-text-color:          rgba(255, 255, 255, var(--opacity-text-subtle));
+
+  --surface-default:            rgba(255, 255, 255, var(--opacity-surface-default));
+  --surface-hover:              rgba(255, 255, 255, var(--opacity-surface-hover));
+  --surface-dot-inactive:       rgba(255, 255, 255, var(--opacity-surface-dot));
+
+  --gradient-left-panel: linear-gradient(
+    160deg,
+    var(--color-gradient-1) 0%,
+    var(--color-gradient-2) 35%,
+    var(--color-gradient-3) 60%,
+    var(--color-gradient-4) 100%
+  );
+
+  --gradient-location-btn: linear-gradient(
+    90deg,
+    var(--color-teal-100) 0%,
+    var(--color-purple-100) 100%
+  );
+
+  /* ── Font Family ─────────────────────────────────────── */
+  --font-family-montserrat: 'Montserrat', sans-serif;
+
+  /* ── Font Sizes (raw) ────────────────────────────────── */
   --font-size-14: 14px;
   --font-size-16: 16px;
   --font-size-20: 20px;
@@ -15,36 +85,45 @@
   --font-size-38: 38px;
   --font-size-52: 52px;
 
-  /* ── Font Family ─────────────────────────────────────── */
-  --font-family-montserrat: 'Montserrat', sans-serif;
+  /* ── Typography (semantic) ───────────────────────────── */
+  --regular-text:        var(--font-size-20);
+  --font-heading-sm:     var(--font-size-20);
+  --font-heading-md:     var(--font-size-28);
+  --font-heading-lg:     var(--font-size-38);
+  --font-headings-primary: var(--font-family-montserrat);
 
-  /* ── Corner Radii ────────────────────────────────────── */
+  /* ── Spacing ─────────────────────────────────────────── */
+  --space-4:  4px;
+  --space-8:  8px;
+  --space-10: 10px;
+  --space-12: 12px;
+  --space-14: 14px;
+  --space-16: 16px;
+  --space-24: 24px;
+  --space-28: 28px;
+  --space-32: 32px;
+
+  /* Semantic spacing */
+  --padding-panel:    var(--space-28);
+  --padding-panel-b:  var(--space-32);
+  --padding-card:     var(--space-14) var(--space-8);
+  --gap-widget:       var(--space-16);
+  --gap-metrics:      var(--space-12);
+  --gap-forecast:     var(--space-8);
+  --gap-stats:        var(--space-4);
+
+  /* ── Corner Radii (raw) ──────────────────────────────── */
   --corner-round-10: 10px;
   --corner-round-25: 24px;
   --corner-round-30: 30px;
 
-  /* ── Colors (semantic) ───────────────────────────────── */
-  --color-navy-blue-100: #222831;
-  --color-white-100: #ffffff;
-
-  /* ── Typography (semantic) ───────────────────────────── */
-  --primary-text-color: var(--color-white-100);
-
-  /* ── Text Sizes ──────────────────────────────────────── */
-  --regular-text: var(--font-size-20);
-
-  /* ── Heading Sizes ───────────────────────────────────── */
-  --font-heading-sm: var(--font-size-20);
-  --font-heading-md: var(--font-size-28);
-  --font-heading-lg: var(--font-size-38);
-  --font-headings-primary: var(--font-family-montserrat);
-
-  /* ── Corner Round (semantic) ─────────────────────────── */
-  --corner-round-day-panel: var(--corner-round-30);
+  /* Corner Radii (semantic) */
+  --corner-round-day-panel:          var(--corner-round-30);
   --corner-round-day-forecast-panel: var(--corner-round-25);
-  --corner-round-day: var(--corner-round-10);
-  --corner-round-button: var(--corner-round-10);
+  --corner-round-day:                var(--corner-round-10);
+  --corner-round-button:             var(--corner-round-10);
 
-  /* ── Design ──────────────────────────────────────────── */
-  --app-background-color: #1a1f27;
+  /* ── Shadows ─────────────────────────────────────────── */
+  --shadow-widget:     0 32px 80px rgba(0, 0, 0, 0.5);
+  --shadow-left-panel: 4px 0 24px rgba(0, 0, 0, 0.25);
 }
